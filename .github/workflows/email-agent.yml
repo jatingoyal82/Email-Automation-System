@@ -1,9 +1,9 @@
 name: Email Automation Agent
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "*/2 * * * *"
-  workflow_dispatch:        # allows manual run
 
 jobs:
   run-agent:
@@ -32,7 +32,6 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-          CHECK_INTERVAL: "1"
         run: |
           cd agent
           node src/index.js
