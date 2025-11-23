@@ -3,6 +3,19 @@ import { readPendingEmails } from './sheetReader.js';
 import { initializeTransporter, sendEmail, verifyConnection } from './emailSender.js';
 import { markAsSent, markAsFailed } from './sheetUpdater.js';
 
+import express from 'express';
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Agent is running successfully 🚀');
+});
+
+// Render requires the process to listen on a port
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
+    console.log(`Render keep-alive server running on port ${PORT}`);
+});
+
 // Load environment variables
 dotenv.config();
 
