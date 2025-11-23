@@ -16,7 +16,7 @@ function parseCSV(csvText: string): EmailRecord[] {
     if (lines.length < 2) return [];
 
     const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-    console.log('CSV Headers:', headers);
+    console.log('CSV Headers:', headers); // Debug log
 
     const data: EmailRecord[] = [];
 
@@ -31,6 +31,7 @@ function parseCSV(csvText: string): EmailRecord[] {
         }
     }
 
+    // Debug: Log first email to see structure
     if (data.length > 0) {
         console.log('Sample email data:', JSON.stringify(data[0], null, 2));
     }
@@ -63,13 +64,13 @@ function parseCSVLine(line: string): string[] {
 export async function GET() {
     try {
         // Get the Sheet ID from environment variable
-        let sheetId = process.env.NEXT_PUBLIC_SHEET_ID;
+        const sheetId = process.env.NEXT_PUBLIC_SHEET_ID;
 
         // Detailed logging for debugging
-        console.log('Environment check (raw):', {
+        console.log('Environment check:', {
             hasSheetId: !!sheetId,
             sheetIdLength: sheetId?.length,
-            sheetIdRaw: sheetId
+            sheetIdPreview: sheetId ? `${sheetId.substring(0, 10)}...` : 'undefined'
         });
 
         if (!sheetId) {
@@ -83,23 +84,14 @@ export async function GET() {
             );
         }
 
-        // Clean the Sheet ID - trim whitespace and remove quotes that Vercel might add
-        sheetId = sheetId.trim().replace(/^["']|["']$/g, '');
-
-        console.log('Environment check (cleaned):', {
-            sheetIdLength: sheetId.length,
-            sheetIdCleaned: sheetId
-        });
-
         // Validate Sheet ID format (should be alphanumeric with hyphens/underscores)
         const sheetIdRegex = /^[a-zA-Z0-9_-]+$/;
         if (!sheetIdRegex.test(sheetId)) {
             console.error('Invalid Sheet ID format:', sheetId);
-            console.error('Sheet ID characters:', sheetId.split('').map(c => `${c} (${c.charCodeAt(0)})`).join(', '));
             return NextResponse.json(
                 {
                     error: 'Invalid SHEET_ID format',
-                    details: `Sheet ID contains invalid characters. Received: "${sheetId}"`
+                    details: 'Sheet ID contains invalid characters'
                 },
                 { status: 500 }
             );
