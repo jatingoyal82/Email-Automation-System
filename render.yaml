@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: email-automation-agent
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd agent && npm install
+    startCommand: cd agent && node src/index.js
+    envVars:
+      - key: SHEET_ID
+        sync: false
+      - key: WEBHOOK_URL
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: FROM_EMAIL
+        sync: false
+      - key: FROM_NAME
+        sync: false
+      - key: CHECK_INTERVAL
+        value: 60000
