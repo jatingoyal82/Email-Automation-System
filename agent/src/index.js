@@ -122,7 +122,7 @@ async function main() {
     await processEmails();
 
     // Set up interval to check for new emails
-    // setInterval(processEmails, config.checkInterval);
+    setInterval(processEmails, config.checkInterval);
 }
 
 // Handle graceful shutdown
