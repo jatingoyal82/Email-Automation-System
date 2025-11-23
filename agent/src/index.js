@@ -3,19 +3,6 @@ import { readPendingEmails } from './sheetReader.js';
 import { initializeTransporter, sendEmail, verifyConnection } from './emailSender.js';
 import { markAsSent, markAsFailed } from './sheetUpdater.js';
 
-import express from 'express';
-const app = express();
-
-app.get('/', (req, res) => {
-    res.send('Agent is running successfully 🚀');
-});
-
-// Render requires the process to listen on a port
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => {
-    console.log(`Render keep-alive server running on port ${PORT}`);
-});
-
 // Load environment variables
 dotenv.config();
 
@@ -135,7 +122,7 @@ async function main() {
     await processEmails();
 
     // Set up interval to check for new emails
-    setInterval(processEmails, config.checkInterval);
+    // setInterval(processEmails, config.checkInterval);
 }
 
 // Handle graceful shutdown
@@ -146,7 +133,10 @@ process.on('SIGINT', () => {
 });
 
 // Start the agent
-main().catch(error => {
-    console.error('Fatal error:', error);
-    process.exit(1);
+main()
+  .then(() => process.exit(0))
+  .catch(err => {
+      console.error("Fatal error:", err);
+      process.exit(1);
 });
+
