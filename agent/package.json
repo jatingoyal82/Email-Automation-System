@@ -1,0 +1,20 @@
+{
+  "name": "email-automation-agent",
+  "version": "1.0.0",
+  "description": "Automation agent for sending emails from Google Sheets",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": ["email", "automation", "google-sheets"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.7",
+    "dotenv": "^16.3.1",
+    "csv-parse": "^5.5.3"
+  }
+}

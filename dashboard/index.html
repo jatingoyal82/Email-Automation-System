@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Automation Dashboard</title>
+  <meta name="description" content="Real-time dashboard for email automation system statistics">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">📧</div>
+          <h1>Email Automation</h1>
+        </div>
+        <div class="header-actions">
+          <button id="refreshBtn" class="btn-refresh" title="Refresh data">
+            <span class="refresh-icon">↻</span>
+            Refresh
+          </button>
+          <div class="last-updated">
+            Last updated: <span id="lastUpdated">Never</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Statistics Cards -->
+    <section class="stats-section">
+      <div class="stats-grid">
+        <div class="stat-card total">
+          <div class="stat-icon">📊</div>
+          <div class="stat-content">
+            <div class="stat-label">Total Emails</div>
+            <div class="stat-value" id="totalCount">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card sent">
+          <div class="stat-icon">✓</div>
+          <div class="stat-content">
+            <div class="stat-label">Sent</div>
+            <div class="stat-value" id="sentCount">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card failed">
+          <div class="stat-icon">✗</div>
+          <div class="stat-content">
+            <div class="stat-label">Failed</div>
+            <div class="stat-value" id="failedCount">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card pending">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-content">
+            <div class="stat-label">Pending</div>
+            <div class="stat-value" id="pendingCount">0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Emails Table -->
+    <section class="table-section">
+      <div class="section-header">
+        <h2>Recent Emails</h2>
+        <div class="section-subtitle">Latest email activity from your automation system</div>
+      </div>
+
+      <div class="table-container">
+        <table class="emails-table">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Subject</th>
+              <th>Status</th>
+              <th>Sent At</th>
+              <th>Error</th>
+            </tr>
+          </thead>
+          <tbody id="emailsTableBody">
+            <tr class="loading-row">
+              <td colspan="5">
+                <div class="loading">
+                  <div class="spinner"></div>
+                  <span>Loading email data...</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Configuration Notice -->
+    <section class="config-notice" id="configNotice" style="display: none;">
+      <div class="notice-content">
+        <div class="notice-icon">⚠️</div>
+        <div class="notice-text">
+          <strong>Configuration Required</strong>
+          <p>Please update the <code>SHEET_ID</code> in <code>app.js</code> with your Google Sheet ID.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
